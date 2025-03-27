@@ -1,0 +1,16 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" },
+  ],
+  // "compilerOptions": {
+  //   "baseUrl": "./",
+  //   "paths": {
+  //     "@/*": ["src/*"]
+  //   },
+  //   "types": ["element-plus/global","node", "env.d.ts","vite/client", "vue/macros-global"]
+  // },
+  // "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","src/**/*.less"],
+  // "exclude": ["node_modules"]
+}
