@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div>
         <h1 class="head">根组件</h1>
         <el-button type="primary" size="default" :icon="Plus" @click="test">主要按钮</el-button>
@@ -25,4 +25,18 @@ div {
         color: @heading-color;
     }
 }
+</style> -->
+
+<template>
+  <div>
+    <router-view></router-view>
+  </div>
+</template>
+
+<script setup lang="ts">
+  
+</script>
+
+<style scoped>
+  
 </style>

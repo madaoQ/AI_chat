@@ -6,6 +6,9 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import 'virtual:svg-icons-register' 
 
+//引入路由
+import router from './router/index.ts'
+
 //@ts-ignore
 import SvgIcon from './components/SvgIcon.vue'
 
@@ -24,6 +27,8 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 app.use(ElementPlus, {
     locale: zhCn,
 })
+
+app.use(router)
 
 // 全局注册 svg-icon 组件 
 //app.component('SvgIcon', SvgIcon)

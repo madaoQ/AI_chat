@@ -30,6 +30,7 @@ export default defineConfig({
       '@': path.resolve('./src'),
     }
   },
+  // 全局css
   // css: {
   //   preprocessorOptions: {
   //     less: {
