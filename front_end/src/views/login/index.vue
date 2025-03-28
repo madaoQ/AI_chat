@@ -14,11 +14,11 @@
         </div>
 
         <div class="button_container">
-          <el-button :loading="loading" type="submit" class="action_btn submit_btn">
+          <el-button :loading="loading"  class="action_btn submit_btn" @click="handleSubmit">
             <span class="btn_text">立即登录</span>
             <span class="btn_wave"></span>
           </el-button>
-          <el-button type="button" class="action_btn register_btn" @click="goToRegister">
+          <el-button class="action_btn register_btn" @click="goToRegister">
             <span class="btn_text">注册账号</span>
             <span class="btn_wave"></span>
           </el-button>
