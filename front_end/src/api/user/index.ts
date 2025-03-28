@@ -1,6 +1,5 @@
-//用户相关接口
+//用户相关接口  
 import request from "@/utils/request.ts";
-//import request from "../../utils/request.ts";
 import type { LoginForm, LoginResponse } from "./type.ts";
 enum API {
     LOGIN_URL = '/user/login',
