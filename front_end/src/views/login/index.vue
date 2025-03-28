@@ -79,14 +79,14 @@ const handleSubmit =async () => {
       type: 'success',
       duration: 2000
     })
-  } catch (error) {
+  } catch (error: any) {
     //加载停止
     loading.value = false;
     //登录失败提示
     ElNotification({
       title: '提示',
-      message: '登录失败',
-      type: 'error',
+      message: error.message,
+      type: 'warning',
     })
   }
 };
