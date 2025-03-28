@@ -12,7 +12,13 @@ import router from './router/index.ts'
 //@ts-ignore
 import SvgIcon from './components/SvgIcon.vue'
 
+//引入仓库
+import pinia from '@/store/index.ts'
+
 const app = createApp(App)
+
+//安装仓库
+app.use(pinia)
 
 // 获取 title 元素
 const appTitle = document.getElementById('app-title');

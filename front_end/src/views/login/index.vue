@@ -2,37 +2,26 @@
   <div class="login_container">
     <div class="login_card">
       <h2 class="title">欢迎登录</h2>
-      
+
       <form @submit.prevent="handleSubmit" class="login_form">
         <div class="form_group">
-          <el-input
-            v-model="form.username"
-            placeholder="请输入用户名"
-            :prefix-icon="User"
-            class="custom_input"
-          />
+          <el-input v-model="form.username" placeholder="请输入用户名" :prefix-icon="User" class="custom_input" />
         </div>
-        
+
         <div class="form_group">
-          <el-input
-            v-model="form.password"
-            type="password"
-            placeholder="请输入密码"
-            :prefix-icon="Lock"
-            show-password
-            class="custom_input"
-          />
+          <el-input v-model="form.password" type="password" placeholder="请输入密码" :prefix-icon="Lock" show-password
+            class="custom_input" />
         </div>
 
         <div class="button_container">
-          <button type="submit" class="action_btn submit_btn">
+          <el-button :loading="loading" type="submit" class="action_btn submit_btn">
             <span class="btn_text">立即登录</span>
             <span class="btn_wave"></span>
-          </button>
-          <button type="button" class="action_btn register_btn" @click="goToRegister">
+          </el-button>
+          <el-button type="button" class="action_btn register_btn" @click="goToRegister">
             <span class="btn_text">注册账号</span>
             <span class="btn_wave"></span>
-          </button>
+          </el-button>
         </div>
       </form>
     </div>
@@ -40,20 +29,32 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive,ref } from 'vue';
 import { User, Lock } from '@element-plus/icons-vue';
 
-interface LoginForm {
-  username: string;
-  password: string;
-}
+//引入表单数据类型
+import type { LoginForm } from "@/api/user/type.ts";
+
+//引入用户相关小仓库
+import useUserStore from '@/store/modules/user.ts';
+
+import { useRouter } from 'vue-router';
+
+import {ElNotification} from 'element-plus'
+
+const router = useRouter(); // 添加对 useRouter 的使用，创建 router 实例
+
+const userStore = useUserStore();
 
 const form = reactive<LoginForm>({
   username: '',
   password: ''
 });
 
-const handleSubmit = () => {
+//控制按钮加载效果
+let loading = ref(false);
+
+const handleSubmit =async () => {
   // 表单验证逻辑
   if (!form.username.trim()) {
     alert('请输入账号');
@@ -64,7 +65,30 @@ const handleSubmit = () => {
     return;
   }
   // 提交登录逻辑
-  console.log('提交登录:', form);
+  try {
+    //开始加载
+    loading.value = true;
+    await userStore.userLogin(form);
+    router.push('/home');
+    //停止加载
+    loading.value = false;
+    //登陆成功提示信息
+    ElNotification({
+      title: '提示',
+      message: '登录成功',
+      type: 'success',
+      duration: 2000
+    })
+  } catch (error) {
+    //加载停止
+    loading.value = false;
+    //登录失败提示
+    ElNotification({
+      title: '提示',
+      message: '登录失败',
+      type: 'error',
+    })
+  }
 };
 
 const goToRegister = () => {
@@ -86,7 +110,7 @@ const goToRegister = () => {
   background: white;
   padding: 2.5rem 3rem;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   width: 400px;
   display: flex;
   flex-direction: column;
@@ -95,7 +119,7 @@ const goToRegister = () => {
 
 .login_card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
 .title {
@@ -167,12 +191,10 @@ const goToRegister = () => {
   left: -100%;
   width: 200%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.4) 50%,
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4) 50%,
+      transparent);
   transform: translateX(-100%);
   transition: none;
   pointer-events: none;
@@ -186,6 +208,7 @@ const goToRegister = () => {
   0% {
     transform: translateX(-100%);
   }
+
   100% {
     transform: translateX(100%);
   }
