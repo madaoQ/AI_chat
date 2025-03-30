@@ -75,6 +75,7 @@ const handleSubmit =async () => {
   // 表单验证逻辑
   // 提交登录逻辑
   try {
+    //在这里失败请求直接发不出去，不会有message的值
     await loginForms.value?.validate();
     //开始加载
     loading.value = true;
@@ -84,7 +85,6 @@ const handleSubmit =async () => {
     loading.value = false;
     //登陆成功提示信息
     ElNotification({
-      title: '提示',
       message: `登录成功,${getTime()}`,
       type: 'success',
       duration: 2000
