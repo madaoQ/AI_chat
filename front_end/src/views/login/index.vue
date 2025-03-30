@@ -42,6 +42,9 @@ import { useRouter } from 'vue-router';
 
 import {ElNotification} from 'element-plus'
 
+//引入获取当前时间的函数
+import { getTime } from "@/utils/times.ts";
+
 const router = useRouter(); // 添加对 useRouter 的使用，创建 router 实例
 
 const userStore = useUserStore();
@@ -75,7 +78,7 @@ const handleSubmit =async () => {
     //登陆成功提示信息
     ElNotification({
       title: '提示',
-      message: '登录成功',
+      message: `登录成功,${getTime()}`,
       type: 'success',
       duration: 2000
     })
