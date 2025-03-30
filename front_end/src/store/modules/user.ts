@@ -3,6 +3,11 @@ import { defineStore } from "pinia";
 
 //引入表单数据类型
 import type { LoginForm, LoginResponse } from "@/api/user/type.ts";
+//引入用户数据类型
+import type { UserState } from "./types/type.ts";
+
+//引入操作本地存储的工具
+import { SET_TOKEN, GET_TOKEN} from "@/utils/tokens.ts";
 
 //引入接口
 import { reqLogin } from "@/api/user";
@@ -10,11 +15,10 @@ import { reqLogin } from "@/api/user";
 //创建用户相关的小仓库
 let useUserStore = defineStore('User', {
     //小仓库存储数据地方
-    state: () => {
+    state: ():UserState => {
         return {
             //用户信息对象
-            token: localStorage.getItem('TOKEN'), //用户唯一标识token
-            menuRoutes: [], //仓库存储生成菜单需要数组[路由] 
+            token: GET_TOKEN(), //用户唯一标识token
         }
     },
 
@@ -26,7 +30,7 @@ let useUserStore = defineStore('User', {
             //登录请求 成功 200 -> token
             if (result.code == 200) {
                 this.token = result.data.token as string; 
-                localStorage.setItem('TOKEN', this.token);
+                SET_TOKEN(this.token);
                 //返回成功Promise
                 return 'ok';
             }else{
