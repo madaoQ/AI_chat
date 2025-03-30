@@ -80,7 +80,7 @@ const handleSubmit =async () => {
     //开始加载
     loading.value = true;
     await userStore.userLogin(form);
-    router.push('/home');
+    router.push('/layout');
     //停止加载
     loading.value = false;
     //登陆成功提示信息

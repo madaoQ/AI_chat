@@ -30,25 +30,15 @@ export default defineConfig({
       '@': path.resolve('./src'),
     }
   },
-  // 全局css
-  // css: {
-  //   preprocessorOptions: {
-  //     less: {
-  //       modifyVars: {
-  //         hack: `true; @import (reference) "${path.resolve("src/assets/css/base.less")}";`,
-  //       },
-  //       javascriptEnabled: true,
-  //     },
-  //   },
-  // },
   css: {
     preprocessorOptions: {
       less: {
       //你的less文件 地址
-        // additionalData: `
-        //   @import "@/assets/styles/variables.less";
-        //   @import "@/assets/styles/mixins.less";
-        // `,
+        additionalData: `
+          @import "@/styles/variables.less";
+          @import "@/styles/scrollBar.less";
+          `,
+          // @import "@/assets/styles/mixins.less";
         javascriptEnabled: true,
       },
     }
