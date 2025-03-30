@@ -3,15 +3,15 @@
     <div class="login_card">
       <h2 class="title">欢迎登录</h2>
 
-      <form @submit.prevent="handleSubmit" class="login_form">
-        <div class="form_group">
+      <el-form class="login_form" :model="form" :rules="rules" ref="loginForms">
+        <el-form-item class="form_group" prop="username">
           <el-input v-model="form.username" placeholder="请输入用户名" :prefix-icon="User" class="custom_input" />
-        </div>
+        </el-form-item>
 
-        <div class="form_group">
+        <el-form-item class="form_group" prop="password">
           <el-input v-model="form.password" type="password" placeholder="请输入密码" :prefix-icon="Lock" show-password
             class="custom_input" />
-        </div>
+        </el-form-item>
 
         <div class="button_container">
           <el-button :loading="loading"  class="action_btn submit_btn" @click="handleSubmit">
@@ -23,7 +23,7 @@
             <span class="btn_wave"></span>
           </el-button>
         </div>
-      </form>
+      </el-form>
     </div>
   </div>
 </template>
@@ -49,26 +49,33 @@ const router = useRouter(); // 添加对 useRouter 的使用，创建 router 实
 
 const userStore = useUserStore();
 
+const loginForms = ref();
+
 const form = reactive<LoginForm>({
   username: '',
   password: ''
 });
+
+//定义表单对象校验配置
+const rules = {
+  username: [
+    { required: true, message: '请输入用户名', trigger: 'blur' },
+    { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
+  ], 
+  password: [
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 6, message: '密码长度不能小于 6 个字符', trigger: 'blur' }
+  ]
+}
 
 //控制按钮加载效果
 let loading = ref(false);
 
 const handleSubmit =async () => {
   // 表单验证逻辑
-  if (!form.username.trim()) {
-    alert('请输入账号');
-    return;
-  }
-  if (form.password.length < 6) {
-    alert('密码长度不能小于6位');
-    return;
-  }
   // 提交登录逻辑
   try {
+    await loginForms.value?.validate();
     //开始加载
     loading.value = true;
     await userStore.userLogin(form);
@@ -87,7 +94,7 @@ const handleSubmit =async () => {
     loading.value = false;
     //登录失败提示
     ElNotification({
-      title: '提示',
+      title: '登录失败',
       message: error.message,
       type: 'warning',
     })
