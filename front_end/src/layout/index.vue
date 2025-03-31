@@ -3,17 +3,10 @@
     <!-- 左侧菜单 -->
     <div class="layout_slider">
       <Logo></Logo>
-      <el-scrollbar>
+      <el-scrollbar class="scrollbar">
         <!-- 菜单组件 -->
         <el-menu background-color=@menu-bg-color text-color="white">
-          <el-menu-item index="1">首页</el-menu-item>
-          <el-menu-item index="2">数据大屏</el-menu-item>
-          <el-sub-menu index="3">
-            <template #title>什么玩意</template>
-            <el-menu-item index="3-1">hahahah</el-menu-item>
-            <el-menu-item index="3-2">heheheh</el-menu-item>
-            <el-menu-item index="3-3">lalalal</el-menu-item>
-          </el-sub-menu>
+          <Menu :menuList="userStore.menuRoutes"></Menu>
         </el-menu>
       </el-scrollbar>
     </div>
@@ -30,6 +23,11 @@
 <script setup lang="ts">
 //引入左侧菜单组件
 import Logo from '@/layout/logo/index.vue'
+//引入菜单组件
+import Menu from '@/layout/menu/index.vue'
+//获取user小仓库
+import useUserStore from '@/store/modules/user'
+const userStore = useUserStore()
 </script>
 
 <style lang="less" scoped>
@@ -48,6 +46,9 @@ import Logo from '@/layout/logo/index.vue'
       height: calc(100vh - @menu-logo-height);
       padding: 25px;
 
+      .el-menu {
+        border-right: none;
+      }
     }
   }
 

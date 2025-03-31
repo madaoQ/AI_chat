@@ -1,6 +1,6 @@
 <template>
   <div class="logo">
-    <SvgIcon name="AI" width="35px"></SvgIcon>
+    <SvgIcon name="AI" width="35px" height="35px"></SvgIcon>
     <p>{{ setting.title }}</p>
   </div>
 </template>

@@ -9,6 +9,9 @@ import type { UserState } from "./types/type.ts";
 //引入操作本地存储的工具
 import { SET_TOKEN, GET_TOKEN} from "@/utils/tokens.ts";
 
+//引入路由(常量路由)
+import { constantRoute } from "@/router/routers.ts";
+
 //引入接口
 import { reqLogin } from "@/api/user";
 
@@ -19,6 +22,7 @@ let useUserStore = defineStore('User', {
         return {
             //用户信息对象
             token: GET_TOKEN(), //用户唯一标识token
+            menuRoutes: constantRoute, //仓库存储生成菜单需要数组(路由)
         }
     },
 
