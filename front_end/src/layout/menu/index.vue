@@ -1,11 +1,11 @@
 <template>
 
   <!-- 动态生成的菜单 -->
-  <template v-for="(item) in menuList" :key="item.path">
+  <template v-for="(item) in menuList" :key="item.path" >
     
     <!-- 一级菜单 -->
      <!-- 无子路由 -->
-     <el-menu-item v-if="!item.children && !item.meta.hidden" :index="item.path" @click="goRoute">
+     <el-menu-item v-if="!item.children && !item.meta.hidden" :index="item.path" @click="goRoute(item)">
         <template #title>
           <el-icon>
             <component :is="item.meta.icon"></component>
@@ -15,7 +15,7 @@
      </el-menu-item>
 
      <!-- 有子路由但只有一个 -->
-     <el-menu-item v-if="item.children && item.children.length === 1 && !item.children[0].meta.hidden" :index="item.path">
+     <el-menu-item v-if="item.children && item.children.length === 1 && !item.children[0].meta.hidden" :index="item.path" @click="goRoute(item.children[0])">
         <template #title>
           <el-icon>
             <component :is="item.children[0].meta.icon"></component>
@@ -42,11 +42,15 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 //获取父组件传递过来的菜单列表
 defineProps(['menuList'])
+//引入路由器
+const router = useRouter()
 //点击菜单的回调
 const goRoute =(item:any)=>{
-  console.log(item)
+  console.log(item.name);
+  router.push(item.path)
 }
 </script>
 

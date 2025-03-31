@@ -1,6 +1,6 @@
 <template>
-  <div class="home_container">
-    <h1>单二级路由-首页</h1>
+  <div>
+    <h1>数据图一级路由组件</h1>
   </div>
 </template>
 
@@ -9,4 +9,5 @@
 </script>
 
 <style scoped>
+  
 </style>

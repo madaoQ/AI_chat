@@ -14,8 +14,7 @@
     <div class="layout_tabbar">layout_tabbar</div>
     <!-- 内容展示区 -->
     <div class="layout_main">
-      layout_main
-      <p style="height: 10000px; background-color: aqua;">hello</p>
+      <Main></Main>
     </div>
   </div>
 </template>
@@ -25,6 +24,8 @@
 import Logo from '@/layout/logo/index.vue'
 //引入菜单组件
 import Menu from '@/layout/menu/index.vue'
+
+import Main from '@/layout/main/index.vue'
 //获取user小仓库
 import useUserStore from '@/store/modules/user'
 const userStore = useUserStore()
@@ -69,7 +70,7 @@ const userStore = useUserStore()
     height: calc(100vh - @top-height);
     left: @menu-width;
     top: @top-height;
-    background-color: red;
+    background-color: @content-bg-color;
     padding: 25px;
     overflow: auto;
   }
