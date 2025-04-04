@@ -10,10 +10,10 @@ export const constantRoute = [
         children: [
             { path: '/layout/home', component: () => import('@/views/home/index.vue'), name: 'home', meta: { title: '首页', hidden: false, icon: "House" } }
         ],
-        meta: { title: '主页', hidden: false, icon: "House" }
+        meta: { title: '', hidden: false, icon: "" }
     },
     {
-        path: '/AI_Filter', component: () => import('@/layout/index.vue'), name: 'AI_Filter',
+        path: '/AI_Filter', component: () => import('@/layout/index.vue'), name: 'AI_Filter',redirect: '/AI_Filter/AI_Chat',
         children: [
             { path: '/AI_Filter/AI_Chat', component: () => import('@/views/AIFilter/chat/index.vue'), name: 'AI_Chat', meta: { title: 'AI对话', hidden: false, icon: "ChatSquare" } },
             { path: '/AI_Filter/AI_Draw', component: () => import('@/views/AIFilter/draw/index.vue'), name: 'AI_Draw', meta: { title: 'AI绘图', hidden: false, icon: "Picture" } }
@@ -21,7 +21,7 @@ export const constantRoute = [
         meta: { title: 'AI能力选择', hidden: false, icon: "Filter" }
     },
     {
-        path: '/resource', component: () => import('@/layout/index.vue'), name: 'resource',
+        path: '/resource', component: () => import('@/layout/index.vue'), name: 'resource',redirect: '/resource/getRes',
         children: [
             { path: '/resource/getRes', component: () => import('@/views/resource/getRes/index.vue'), name: 'getRes', meta: { title: '查看资料', hidden: false, icon: "Reading" } },
             { path: '/resource/pushRes', component: () => import('@/views/resource/pushRes/index.vue'), name: 'pushRes', meta: { title: '上传资料', hidden: false, icon: "EditPen" } }

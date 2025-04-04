@@ -49,7 +49,6 @@ defineProps(['menuList'])
 const router = useRouter()
 //点击菜单的回调
 const goRoute =(item:any)=>{
-  console.log(item.name);
   router.push(item.path)
 }
 </script>
