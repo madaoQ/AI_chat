@@ -25,7 +25,7 @@
      </el-menu-item>
 
      <!-- 有子路由且有多个 -->
-      <el-sub-menu v-if="item.children && item.children.length > 1" :index="item.path">
+      <el-sub-menu v-if="item.children && item.children.length > 1" :index="item.path" text-color="white" background-color=@menu-bg-color>
         <template #title>
           <el-icon>
             <component :is="item.meta.icon"></component>

@@ -5,7 +5,7 @@
       <Logo></Logo>
       <el-scrollbar class="scrollbar">
         <!-- 菜单组件 -->
-        <el-menu :collapse="layoutSettingStore.fold?true:false"  :default-active="route.path" background-color=@menu-bg-color text-color="white">
+        <el-menu :collapse="layoutSettingStore.fold?true:false"  :default-active="route.path" text-color="white" background-color=#283646 >
           <Menu :menuList="userStore.menuRoutes"></Menu>
         </el-menu>
       </el-scrollbar>
