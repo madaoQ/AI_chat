@@ -1,7 +1,7 @@
 <template>
-    <el-button type="primary" size="small" icon="Refresh" circle="true"></el-button>
-    <el-button type="primary" size="small" icon="FullScreen" circle="true"></el-button>
-    <el-button type="primary" size="small" icon="Setting" circle="true"></el-button>
+    <el-button type="primary" size="small" icon="Refresh" :circle="true"></el-button>
+    <el-button type="primary" size="small" icon="FullScreen" :circle="true"></el-button>
+    <el-button type="primary" size="small" icon="Setting" :circle="true"></el-button>
 
     <img src="@/assets/icons/AI.svg" style="width: 30px; height: 30px; margin:0px 10px ;" alt="userHead">
     <!-- 下拉菜单 -->
@@ -19,6 +19,12 @@
         </template>
     </el-dropdown>
 </template>
+
+<script lang="ts">
+export default {
+  name: 'Setting',
+}
+</script>
 
 <script setup lang="ts">
 

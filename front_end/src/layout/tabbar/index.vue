@@ -9,6 +9,12 @@
     </div>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'TabBar',
+}
+</script>
+
 <script setup lang="ts">
 import BreadCrumb from './breadcrumb/index.vue'
 import Setting from './setting/index.vue'
