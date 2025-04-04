@@ -1,5 +1,5 @@
 <template>
-    <el-button type="primary" size="small" icon="Refresh" :circle="true"></el-button>
+    <el-button type="primary" size="small" icon="Refresh" :circle="true" @click="updateRefresh"></el-button>
     <el-button type="primary" size="small" icon="FullScreen" :circle="true"></el-button>
     <el-button type="primary" size="small" icon="Setting" :circle="true"></el-button>
 
@@ -27,7 +27,12 @@ export default {
 </script>
 
 <script setup lang="ts">
+import useLayoutStore from '@/store/modules/setting';
+const layoutStore = useLayoutStore();
 
+const updateRefresh = () => {
+    layoutStore.refresh = !layoutStore.refresh;
+}
 </script>
 
 <style scoped></style>
