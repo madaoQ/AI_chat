@@ -5,7 +5,7 @@
 
       <el-form class="login_form" :model="form" :rules="rules" ref="loginForms">
         <el-form-item class="form_group" prop="username">
-          <el-input v-model="form.username" placeholder="请输入用户名" :prefix-icon="User" class="custom_input" />
+          <el-input v-model="form.username" placeholder="请输入电话号" :prefix-icon="User" class="custom_input" />
         </el-form-item>
 
         <el-form-item class="form_group" prop="password">
@@ -14,7 +14,7 @@
         </el-form-item>
 
         <div class="button_container">
-          <el-button :loading="loading"  class="action_btn submit_btn" @click="handleSubmit">
+          <el-button :loading="loading" class="action_btn submit_btn" @click="handleSubmit">
             <span class="btn_text">立即登录</span>
             <span class="btn_wave"></span>
           </el-button>
@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive,ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { User, Lock } from '@element-plus/icons-vue';
 
 //引入表单数据类型
@@ -40,7 +40,7 @@ import useUserStore from '@/store/modules/user.ts';
 
 import { useRouter } from 'vue-router';
 
-import {ElNotification} from 'element-plus'
+import { ElNotification } from 'element-plus'
 
 //引入获取当前时间的函数
 import { getTime } from "@/utils/times.ts";
@@ -58,10 +58,10 @@ const form = reactive<LoginForm>({
 
 //定义表单对象校验配置
 const rules = {
-  username: [
-    { required: true, message: '请输入用户名', trigger: 'blur' },
-    { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
-  ], 
+  teleohone: [
+    { required: true, message: '请输入电话号', trigger: 'blur' },
+    { min: 11, max: 12, message: '长度为11个数字', trigger: 'blur' }
+  ],
   password: [
     { required: true, message: '请输入密码', trigger: 'blur' },
     { min: 6, message: '密码长度不能小于 6 个字符', trigger: 'blur' }
@@ -71,12 +71,20 @@ const rules = {
 //控制按钮加载效果
 let loading = ref(false);
 
-const handleSubmit =async () => {
+const handleSubmit = async () => {
   // 表单验证逻辑
   // 提交登录逻辑
   try {
     //在这里失败请求直接发不出去，不会有message的值
     await loginForms.value?.validate();
+  } catch (error) {
+    ElNotification({
+      title: '登录失败',
+      message: "表单校验失败",
+      type: 'warning',
+    })
+  }
+  try {
     //开始加载
     loading.value = true;
     await userStore.userLogin(form);
