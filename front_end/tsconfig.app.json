@@ -21,6 +21,6 @@
 
     "types": ["element-plus/global","node","vite/client"]
   },
-  "include": ["src/**/**/*.ts","src/**/**/*.vue","src/**/*.tsx", "src/*.d.ts","src/**/*.less"],
+  "include": ["src/**/**/**/*.ts","src/**/**/*.vue","src/**/*.tsx", "src/*.d.ts","src/**/*.less"],
   "exclude": ["node_modules"]
 }

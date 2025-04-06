@@ -5,7 +5,9 @@
       <el-scrollbar height="calc(100vh - 130px)" always>
         <div v-if="messages.length === 0" class="empty-state">
           <div class="empty-content">
-            <el-icon class="empty-icon"><ChatDotRound /></el-icon>
+            <el-icon class="empty-icon">
+              <ChatDotRound />
+            </el-icon>
             <h2>开始一段新的对话</h2>
             <p>AI 助手可以回答问题、提供信息或帮助完成任务</p>
             <el-button type="primary" @click="focusInput" class="start-button">开始对话</el-button>
@@ -27,7 +29,7 @@
                   </div>
                 </div>
               </div>
-              
+
               <!-- User Message -->
               <div v-else class="message-item">
                 <div class="message-bubble">
@@ -41,7 +43,7 @@
                 </div>
               </div>
             </div>
-            
+
             <!-- Typing indicator when loading -->
             <div v-if="isLoading" class="message-wrapper assistant">
               <div class="message-item">
@@ -63,25 +65,13 @@
     </div>
 
     <!-- Chat input area - fixed at bottom -->
-    <div class="chat-input-container" :class="{fold:layoutSettingStore.fold?true:false}">
+    <div class="chat-input-container" :class="{ fold: layoutSettingStore.fold ? true : false }">
       <div class="chat-input">
-        <el-input
-          v-model="inputMessage"
-          type="textarea"
-          :rows="1"
-          :autosize="{ minRows: 1, maxRows: 4 }"
-          placeholder="发送消息给 AI Assistant..."
-          @keyup.enter.prevent="handleEnterKey"
-          ref="inputField"
-        >
+        <el-input v-model="inputMessage" type='text' :rows="1" :autosize="{ minRows: 1, maxRows: 4 }"
+          placeholder="发送消息给 AI Assistant..." @keyup.enter.prevent="handleEnterKey" ref="inputField">
           <template #append>
-            <el-button
-              type="primary"
-              :icon="isLoading ? Loading : Position"
-              :disabled="!inputMessage.trim() || isLoading"
-              @click="sendMessage"
-              class="send-button"
-            />
+            <el-button type="primary" :icon="isLoading ? Loading : Position"
+              :disabled="!inputMessage.trim() || isLoading" @click="sendMessage" class="send-button" />
           </template>
         </el-input>
       </div>
@@ -108,9 +98,8 @@ const renderer = new marked.Renderer();
 renderer.code = function ({ text, lang, escaped }) {
   const code = escaped ? text : hljs.highlightAuto(text).value;
   const language = lang && hljs.getLanguage(lang) ? lang : 'plaintext';
-  return `<pre><code class="hljs ${language}">${
-    hljs.highlight(code, { language }).value
-  }</code></pre>`;
+  return `<pre><code class="hljs ${language}">${hljs.highlight(code, { language }).value
+    }</code></pre>`;
 };
 
 // 设置 marked 的选项
@@ -181,7 +170,7 @@ watch(messages, () => {
 // Send message and get AI response
 const sendMessage = async () => {
   if (!inputMessage.value.trim() || isLoading.value) return;
-  
+
   // Add user message
   const userMessage = inputMessage.value.trim();
   messages.value.push({
@@ -189,19 +178,19 @@ const sendMessage = async () => {
     content: userMessage,
     time: getFormattedTime()
   });
-  
+
   // Clear input
   inputMessage.value = '';
-  
+
   await scrollToBottom();
-  
+
   // Set loading state
   isLoading.value = true;
-  
+
   try {
     // Simulate streaming response (in a real app, you would use an API call here)
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     // For this demo, we'll simulate a response
     const aiResponse = `我是一个 AI 助手，使用 Vue 3、TypeScript 和 Element Plus 构建。这是一个模拟的流式响应。
 
@@ -217,14 +206,14 @@ function hello() {
 - 输入框自动调整大小
 - 用户消息在右侧显示，头像在文字右侧
 - AI 回复在左侧显示，头像在文字左侧`;
-    
+
     // Add AI response
     messages.value.push({
       role: 'assistant',
       content: aiResponse,
       time: getFormattedTime()
     });
-    
+
     await scrollToBottom();
   } catch (error) {
     console.error('Error getting AI response:', error);
@@ -258,18 +247,18 @@ onMounted(() => {
     overflow: hidden;
     padding: 0;
     margin-bottom: 70px; // Space for fixed input
-    
+
     .empty-state {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100%;
       padding: 20px;
-      
+
       .empty-content {
         text-align: center;
         max-width: 400px;
-        
+
         .empty-icon {
           font-size: 48px;
           color: #67c23a;
@@ -278,71 +267,71 @@ onMounted(() => {
           border-radius: 50%;
           margin: 0 auto 20px;
         }
-        
+
         h2 {
           font-size: 24px;
           font-weight: 600;
           margin-bottom: 12px;
           color: #303133;
         }
-        
+
         p {
           color: #606266;
           margin-bottom: 24px;
         }
-        
+
         .start-button {
           padding: 12px 24px;
           font-size: 16px;
         }
       }
     }
-    
+
     .messages-list {
       padding: 20px;
       display: flex;
       flex-direction: column;
       gap: 24px;
     }
-    
+
     .message-wrapper {
       display: flex;
 
       &.user {
         justify-content: flex-end;
-        
+
         .message-item {
           .message-bubble {
             background-color: #e9d8fd; // Light purple like in the image
             color: #4a5568;
             border-radius: 16px 16px 0 16px;
             margin-right: 12px;
-            
+
             pre {
               background-color: rgba(0, 0, 0, 0.1);
             }
-            
+
             code {
               background-color: rgba(0, 0, 0, 0.1);
             }
-            
+
             .message-time {
               color: rgba(74, 85, 104, 0.7);
               text-align: right;
               margin-top: -15px;
             }
           }
-          
+
           .user-avatar {
             background-color: #805ad5;
             color: white;
           }
         }
       }
-      
+
       &.assistant {
         justify-content: flex-start;
-        
+
         .message-item {
           .message-bubble {
             background-color: white;
@@ -351,45 +340,45 @@ onMounted(() => {
             margin-left: 12px;
           }
         }
-        
+
         .ai-avatar {
           background-color: #805ad5; // Purple to match the theme
           color: white;
         }
       }
     }
-    
+
     .message-item {
       display: flex;
       align-items: flex-start;
       max-width: 85%;
-      
+
       .message-avatar {
         flex-shrink: 0;
       }
-      
+
       .message-bubble {
         padding: 12px 16px;
-        
+
         .message-content {
           .message-text {
             line-height: 1.6;
             font-size: 14px;
             white-space: pre-wrap;
             word-break: break-word;
-            
+
             p {
               margin: 8px 0;
-              
+
               &:first-child {
                 margin-top: 0;
               }
-              
+
               &:last-child {
                 margin-bottom: 0;
               }
             }
-            
+
             code {
               font-family: Consolas, Monaco, 'Andale Mono', monospace;
               background-color: #f5f7fa;
@@ -397,7 +386,7 @@ onMounted(() => {
               border-radius: 3px;
               font-size: 13px;
             }
-            
+
             pre {
               background-color: #2b2b2b;
               color: #f8f8f2;
@@ -405,7 +394,7 @@ onMounted(() => {
               border-radius: 4px;
               overflow-x: auto;
               margin: 12px 0;
-              
+
               code {
                 background-color: transparent;
                 padding: 0;
@@ -414,7 +403,7 @@ onMounted(() => {
               }
             }
           }
-          
+
           .message-time {
             font-size: 11px;
             color: #a0aec0;
@@ -423,16 +412,16 @@ onMounted(() => {
           }
         }
       }
-      
+
       .typing-bubble {
         padding: 12px 16px;
         min-width: 60px;
-        
+
         .typing-indicator {
           display: flex;
           align-items: center;
           justify-content: center;
-          
+
           .dot {
             width: 8px;
             height: 8px;
@@ -440,15 +429,15 @@ onMounted(() => {
             border-radius: 50%;
             margin: 0 3px;
             animation: bounce 1.4s infinite ease-in-out;
-            
+
             &:nth-child(1) {
               animation-delay: 0s;
             }
-            
+
             &:nth-child(2) {
               animation-delay: 0.2s;
             }
-            
+
             &:nth-child(3) {
               animation-delay: 0.4s;
             }
@@ -457,7 +446,7 @@ onMounted(() => {
       }
     }
   }
-  
+
   .chat-input-container {
     position: fixed;
     width: calc(100% - @menu-width);
@@ -473,42 +462,43 @@ onMounted(() => {
       width: calc(100% - @menu-fold-width);
       left: @menu-fold-width;
     }
-    
+
     .chat-input {
       max-width: calc(100% - 40px);
       margin: 0 auto;
-      
+
       .el-textarea {
         .el-input__wrapper {
           padding-right: 0;
           box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
           border-radius: 8px;
           transition: box-shadow 0.3s;
-          
-          &:hover, &:focus-within {
+
+          &:hover,
+          &:focus-within {
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
           }
         }
-        
+
         .el-input-group__append {
           padding: 0;
         }
-        
+
         textarea {
           padding: 12px;
           font-size: 14px;
         }
       }
-      
+
       .send-button {
         height: 100%;
         border-radius: 0 8px 8px 0;
         width: 50px;
-        
+
         &:not(:disabled) {
           background-color: #805ad5; // Purple to match the theme
           border-color: #805ad5;
-          
+
           &:hover {
             background-color: #6b46c1;
             border-color: #6b46c1;
@@ -520,9 +510,13 @@ onMounted(() => {
 }
 
 @keyframes bounce {
-  0%, 80%, 100% {
+
+  0%,
+  80%,
+  100% {
     transform: translateY(0);
   }
+
   40% {
     transform: translateY(-6px);
   }
@@ -536,7 +530,7 @@ onMounted(() => {
         max-width: 95%;
       }
     }
-    
+
     .chat-input-container {
       left: 0;
       padding: 12px;
