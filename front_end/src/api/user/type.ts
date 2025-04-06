@@ -13,3 +13,8 @@ export interface LoginResponse {
     code: number,
     data: Data,
 }
+//注册接口 Response
+export interface RegisterResponse {
+    code: number,
+    data: string,
+}

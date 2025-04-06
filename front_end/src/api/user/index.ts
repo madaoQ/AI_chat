@@ -1,6 +1,6 @@
 //用户相关接口  
 import request from "@/utils/request.ts";
-import type { LoginForm, LoginResponse } from "@/api/user/type.ts";
+import type { LoginForm, LoginResponse,RegisterResponse } from "@/api/user/type.ts";
 enum API {
     LOGIN_URL = '/user/login',
     USERINFO_URL = '/user/info',
@@ -12,5 +12,5 @@ enum API {
 //登录接口方法
 export const reqLogin = (data: LoginForm): Promise<LoginResponse> => request.post(API.LOGIN_URL, data)
 
-// //获取用户信息接口方法
-// export const reqUserInfo = () => request.get<any, LoginResponse>(API.USERINFO_URL)
+//注册接口方法
+export const reqRegister = (data: LoginForm): Promise<RegisterResponse> => request.post(API.USERINFO_URL,data)
