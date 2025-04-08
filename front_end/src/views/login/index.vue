@@ -78,11 +78,11 @@ const handleSubmit = async () => {
     //在这里失败请求直接发不出去，不会有message的值
     await loginForms.value?.validate();
   } catch (error) {
-    ElNotification({
-      title: '登录失败',
-      message: "表单校验失败",
-      type: 'warning',
-    })
+    // ElNotification({
+    //   title: '登录失败',
+    //   message: "表单校验失败",
+    //   type: 'warning',
+    // })
   }
   try {
     //开始加载
@@ -103,7 +103,7 @@ const handleSubmit = async () => {
     //登录失败提示
     ElNotification({
       title: '登录失败',
-      message: error.message,
+      message: "账号或密码错误",
       type: 'warning',
     })
   }
