@@ -47,7 +47,6 @@ let useUserStore = defineStore('User', {
 
     //理解为计算属性，用于简化仓库数据，方便组件获取
     getters: {},
-
 })
 
 //对外暴露获取小仓库的方法
